@@ -1,0 +1,59 @@
+volatile int flag = 0;
+volatile int check = 1;
+volatile int ledpin_yellow = D1;
+volatile int ledpin_red = D0;
+volatile int ledpin_green = D2;
+struct repeating_timer timer;
+void setup() {
+pinMode(D0, OUTPUT);
+pinMode(D1, OUTPUT);
+pinMode(D2, OUTPUT);
+add_repeating_timer_ms(5000, changee, nullptr, &timer );
+
+}
+
+void loop()
+{
+
+}
+
+bool changee (struct repeating_timer *t)
+{
+if (flag==0)
+{
+if (check==1)
+{
+digitalWrite(ledpin_red,HIGH);
+flag=1;
+}
+else
+{
+digitalWrite(ledpin_red, LOW);
+}
+if (check==2)
+{
+flag=1;
+digitalWrite(ledpin_yellow,HIGH);
+}
+else
+{
+digitalWrite(ledpin_yellow,LOW);
+}
+if (check==3)
+{
+digitalWrite(ledpin_green,HIGH);
+flag=1;
+check=0;
+}
+else
+{
+digitalWrite(ledpin_green,LOW);
+}
+}
+if (flag==1)
+{
+check=check+1;
+flag=0;
+}
+return true;
+}
