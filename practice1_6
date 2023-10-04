@@ -1,0 +1,10 @@
+volatile int led_Value = 0;
+void setup() {
+analogWriteFreq(120);
+}
+
+void loop() {
+int pot_Value = analogRead(A0);
+led_Value = map(pot_Value, 0, 4095, 0, 255);
+analogWrite(D0, led_Value);
+}
